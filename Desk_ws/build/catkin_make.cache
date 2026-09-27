@@ -1,0 +1,2 @@
+c_srv:custome_msgs_pkg:param_pkg
+-DCATKIN_DEVEL_PREFIX=/home/zara/Desktop/Desk_ws/devel -DCMAKE_INSTALL_PREFIX=/home/zara/Desktop/Desk_ws/install -G Unix Makefiles

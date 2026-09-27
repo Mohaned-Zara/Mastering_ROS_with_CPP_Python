@@ -1,0 +1,8 @@
+prefix=/home/zara/Desktop/Desk_ws/install
+
+Name: param_pkg
+Description: Description of param_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

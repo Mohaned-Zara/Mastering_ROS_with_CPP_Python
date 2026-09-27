@@ -1,0 +1,5 @@
+float32[] readings
+---
+float32 avr
+float32 max
+float32 min

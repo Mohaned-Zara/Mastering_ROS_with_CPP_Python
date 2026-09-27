@@ -1,0 +1,8 @@
+prefix=/home/zara/Desktop/Desk_ws/devel
+
+Name: custome_msgs_pkg
+Description: Description of custome_msgs_pkg
+Version: 0.0.0
+Cflags: -I/home/zara/Desktop/Desk_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime roscpp std_msgs
