@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<robot name="follower_vehicle">
+
+    <!-- ========================= -->
+    <!-- Base Footprint             -->
+    <!-- ========================= -->
+
+    <link name="base_footprint"/>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="chassis"/>
+        <origin rpy="0 0 0" xyz="0 0 0.3"/>
+    </joint>
+
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0.05 0.05 0.05 1.0"/>
+    </material>
+
+    <link name="chassis">
+        <visual>
+            <geometry>
+                <box size="2 1 0.4"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="2 1 0.4"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="5.0"/>
+            <!-- Box inertia: Ixx=(m/12)(y^2+z^2), Iyy=(m/12)(x^2+z^2), Izz=(m/12)(x^2+y^2) -->
+            <inertia
+                ixx="0.4833"
+                ixy="0"
+                ixz="0"
+                iyy="1.7333"
+                iyz="0"
+                izz="2.0833"/>
+        </inertial>
+    </link>
+
+
+    <!-- ========================= -->
+    <!-- Gazebo Materials/Friction  -->
+    <!-- ========================= -->
+
+    <gazebo reference="chassis">
+        <material>Gazebo/White</material>
+        <mu1>0.3</mu1>
+        <mu2>0.3</mu2>
+    </gazebo>
+
+    <!-- Rear Wheels High Friction (Driven) -->
+    <gazebo reference="rear_wheel_right">
+        <material>Gazebo/Black</material>
+        <mu1>10.0</mu1>
+        <mu2>10.0</mu2>
+    </gazebo>
+    <gazebo reference="rear_wheel_left">
+        <material>Gazebo/Black</material>
+        <mu1>10.0</mu1>
+        <mu2>10.0</mu2>
+    </gazebo>
+
+    <!-- Front Wheels Medium Friction (Passive) -->
+    <gazebo reference="front_wheel_right">
+        <material>Gazebo/Black</material>
+        <mu1>5.0</mu1>
+        <mu2>5.0</mu2>
+    </gazebo>
+    <gazebo reference="front_wheel_left">
+        <material>Gazebo/Black</material>
+        <mu1>5.0</mu1>
+        <mu2>5.0</mu2>
+    </gazebo>
+
+    <link name="rear_wheel_right">
+        <visual>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="0.5"/>
+            <!-- Cylinder: Ixx=Iyy=(m/12)(3r^2+h^2), Izz(spin axis)=(1/2)m r^2 -->
+            <inertia
+                ixx="0.0139"
+                ixy="0"
+                ixz="0"
+                iyy="0.0139"
+                iyz="0"
+                izz="0.0225"/>
+        </inertial>
+    </link>
+
+    <link name="rear_wheel_left">
+        <visual>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="0.5"/>
+            <inertia
+                ixx="0.0139"
+                ixy="0"
+                ixz="0"
+                iyy="0.0139"
+                iyz="0"
+                izz="0.0225"/>
+        </inertial>
+    </link>
+
+    <link name="front_wheel_right">
+        <visual>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="0.5"/>
+            <inertia
+                ixx="0.0139"
+                ixy="0"
+                ixz="0"
+                iyy="0.0139"
+                iyz="0"
+                izz="0.0225"/>
+        </inertial>
+    </link>
+
+    <link name="front_wheel_left">
+        <visual>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.3" length="0.25"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="0.5"/>
+            <inertia
+                ixx="0.0139"
+                ixy="0"
+                ixz="0"
+                iyy="0.0139"
+                iyz="0"
+                izz="0.0225"/>
+        </inertial>
+    </link>
+
+    <!-- Depth Camera Link -->
+    <link name="depth_camera_link">
+        <visual>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.000166667" ixy="0" ixz="0" iyy="0.000166667" iyz="0" izz="0.000166667"/>
+        </inertial>
+    </link>
+
+    <!-- Camera Joint (Fixed) -->
+    <joint name="chassis_depth_camera_fixed" type="fixed">
+        <parent link="chassis"/>
+        <child link="depth_camera_link"/>
+        <origin rpy="0 0 0" xyz="0.7 0 0.25"/>
+    </joint>
+
+    <gazebo reference="depth_camera_link">
+        <material>Gazebo/Black</material>
+        <sensor name="depth_camera" type="depth">
+            <update_rate>30.0</update_rate>
+            <camera>
+                <horizontal_fov>1.047</horizontal_fov>
+                <image>
+                    <width>320</width>
+                    <height>240</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.1</near>
+                    <far>100</far>
+                </clip>
+            </camera>
+            <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>30.0</updateRate>
+                <cameraName>depth_camera</cameraName>
+                <imageTopicName>depth/image_raw</imageTopicName>
+                <cameraInfoTopicName>depth/camera_info</cameraInfoTopicName>
+                <frameName>depth_camera_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+
+    <joint name="rear_wheel_right_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="rear_wheel_right"/>
+        <origin rpy="1.5707 0 0" xyz="-0.7 0.625 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="rear_wheel_left_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="rear_wheel_left"/>
+        <origin rpy="1.5707 0 0" xyz="-0.7 -0.625 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="front_wheel_right_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="front_wheel_right"/>
+        <origin rpy="1.5707 0 0" xyz="0.7 0.625 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="front_wheel_left_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="front_wheel_left"/>
+        <origin rpy="1.5707 0 0" xyz="0.7 -0.625 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+
+    <gazebo>
+        <plugin name="planar_move" filename="libgazebo_ros_planar_move.so">
+
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+
+            <odometryRate>50</odometryRate>
+            <cmdTimeout>0.5</cmdTimeout>
+
+            <robotNamespace>/</robotNamespace>
+
+        </plugin>
+    </gazebo>
+
+</robot>
