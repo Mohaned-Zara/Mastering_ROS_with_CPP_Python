@@ -1,0 +1,2 @@
+learning_tf2
+-DCATKIN_DEVEL_PREFIX=/home/zara/Desktop/tr2_ws/devel -DCMAKE_INSTALL_PREFIX=/home/zara/Desktop/tr2_ws/install -G Unix Makefiles
